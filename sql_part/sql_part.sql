@@ -1,0 +1,36 @@
+SELECT product_name,
+       product_img_url,
+       product_url,
+       product_price_min,
+       product_short_description
+FROM grommet_products
+WHERE  grommet_products.grommet_category LIKE 'Jewelry'
+AND grommet_products.is_sold_out = 0;
+
+
+SELECT product_name,
+       product_img_url,
+       product_url,
+       product_price_min,
+       product_short_description
+FROM grommet_products
+WHERE id IN
+    (SELECT product_id
+    FROM grommet_product_to_keyword
+    WHERE grommet_product_to_keyword.keyword_id = 2)
+AND grommet_products.is_sold_out = 0;
+
+
+SELECT product_name,
+       product_img_url,
+       product_url,
+       product_price_min,
+       product_short_description
+FROM grommet_products
+WHERE id
+IN  (SELECT product_id
+    FROM grommet_product_to_keyword
+    WHERE grommet_product_to_keyword.keyword_id = 1)
+OR (grommet_products.grommet_category LIKE 'Skincare'
+    OR grommet_products.grommet_category LIKE 'Personal Care')
+AND grommet_products.is_sold_out = 0;
